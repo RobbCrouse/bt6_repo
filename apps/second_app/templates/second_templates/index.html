@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+</head>
+<body>
+    <a href="/lr_app/logout">Logout</a></h5>
+    <br>
+    <br>
+    <h1>Welcome, {{ current_user }}!</h1>
+    <br>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    <form action="/second_app/createIdea" method="POST">
+        {% csrf_token %}
+        <h1><input type="text" name="greatWords" placeholder="Post something witty here...     "><span>         </span><input type="submit" value="Idea!"></h1>
+    </form>
+    <br>
+    <br>
+
+    {% for idea in all_ideas %}
+        
+        <h2><a href="/second_app/users/{{ idea.added_by.id }}">{{ idea.added_by.name }}</a>  says: {{ idea.greatWords }}</h2>
+    
+        <p><a href="/second_app/favorite/{{ idea.id }}">Like</a><span>       |        </span><a href="/second_app/ideaDetail/{{ idea.id }}">{{ idea.num_likes }} people </a> like this.</p>
+        
+        {% if idea.added_by.id == request.session.user_id %}
+        
+            <p><a href="/second_app/remove/{{idea.id}}">Delete from my Ideas</a></p>
+        {% endif %}
+        <br>   
+    {% endfor %}
+
+
+
+
+</body>
+</html>

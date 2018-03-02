@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Idea details Page</title>
+</head>
+<body>
+    <h5><a href="/second_app/success">Bright Ideas</a> | <a href="/lr_app/logout">Logout</a></h5>
+    <br>
+    <br>
+    
+        
+    <p><a href="/second_app/users/{{ BrightIdeas.added_by.id }}">{{ BrightIdeas.added_by.username }}</a>  says: {{ BrightIdeas.greatWords }}</p>
+    <br>
+    <h3>People who liked this post:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Alias</th>
+                <th>Name</th>
+            </tr>
+            {% for x in LikeMinded %}
+            <tr>
+                <td><a href="/second_app/users/{{ x.id }}">{{ x.username }}</a></td>
+                <td>{{ x.name }}</td>
+            </tr>
+            {% endfor %}
+        </thead>
+    </table>
+    
+</body>
+</html>
